@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { supabase } from '@/lib/supabase'
+import { getSupabaseClient } from '@/lib/supabase'
 
 interface Lead {
   id: string
@@ -52,6 +52,7 @@ export default function AdminPage() {
 
   const loadSimulations = async () => {
     try {
+      const supabase = getSupabaseClient()
       const { data: simData, error: simError } = await supabase
         .from('simulations')
         .select(`

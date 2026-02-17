@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/lib/supabase'
+import { getSupabaseClient } from '@/lib/supabase'
 
 interface Simulation {
   token: string
@@ -42,6 +42,7 @@ export default function ResultadoPage({ params }: { params: { token: string } })
 
   const loadSimulation = async () => {
     try {
+      const supabase = getSupabaseClient()
       const { data: simData, error: simError } = await supabase
         .from('simulations')
         .select('*')

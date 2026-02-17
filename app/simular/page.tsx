@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import imageCompression from 'browser-image-compression'
-import { supabase } from '@/lib/supabase'
+import { getSupabaseClient } from '@/lib/supabase'
 import {
   calculateWithReference,
   calculateManual,
@@ -130,6 +130,7 @@ export default function SimularPage() {
   }
 
   const uploadToSupabase = async (file: File, folder: string): Promise<string> => {
+    const supabase = getSupabaseClient()
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.jpg`
     const filePath = `${folder}/${fileName}`
 

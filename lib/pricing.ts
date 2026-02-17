@@ -1,4 +1,4 @@
-import { supabase } from './supabase'
+import { getSupabaseClient } from './supabase'
 
 export interface PricingConfig {
   acm_m2: number
@@ -32,6 +32,7 @@ export interface PricingResult {
  * Busca configuração de preços
  */
 export async function getPricingConfig(): Promise<PricingConfig> {
+  const supabase = getSupabaseClient()
   const { data, error } = await supabase
     .from('pricing_config')
     .select('*')
@@ -228,6 +229,7 @@ ${spotsQty > 0 ? `• Spots: ${spotsQty} unidades` : ''}
  * Gera próximo número de protocolo
  */
 export async function generateProtocol(): Promise<string> {
+  const supabase = getSupabaseClient()
   // Buscar ou criar counter
   let { data, error } = await supabase
     .from('protocol_counter')
